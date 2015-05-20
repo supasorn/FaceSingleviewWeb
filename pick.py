@@ -1,5 +1,6 @@
 from flask import Flask, request, send_file, url_for, render_template
 import os
+import platform
 import glob
 import collections
 app = Flask(__name__)
@@ -8,12 +9,6 @@ if platform.dist()[0] == 'fedora':
     data = "/projects/grail/supasorn/face-singleview/data/"
 else:
     data = "/home/supasorn/face-singleview/data/"
-
-
-@app.route("/")
-def test():
-    print url_for("m.png")
-    return "yes"
 
 @app.route("/<guy>/<movie>/update", methods=['POST'])
 def update(guy, movie):
@@ -49,4 +44,4 @@ def pick(guy, movie):
     return render_template("template.html", imgs=st) 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=5555)
