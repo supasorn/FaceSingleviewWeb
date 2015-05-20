@@ -36,9 +36,9 @@ def pick(guy, movie):
             v = x.strip().split(" ")
             mp[v[0]] = v[1]
 
-    for f in os.listdir(data + "/" + guy + "/" + movie + "/probe"):
-        if count % 10 == 0:
-            st += "<br/>"
+    for f in sorted(os.listdir(data + "/" + guy + "/" + movie + "/probe")):
+        #if count % 10 == 0:
+            #st += "<br/>"
         st += "<img id='" + f + "' class='clickable " + ("no" if mp[f] == "0" else "") + "' src='../../imgs/" + guy + "/" + movie + "/probe/" + f + "' width='100'/>"
         count += 1
     return render_template("template.html", imgs=st) 

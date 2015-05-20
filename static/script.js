@@ -20,7 +20,17 @@ function sync() {
     }
   });
 }
-var z, x;
+var z, x, hiding = 0;
+function hide() {
+  if (hiding) {
+    $("#hide").html("Hide unselected");
+    $(".no").show();
+  } else {
+    $("#hide").html("Show unselected");
+    $(".no").hide();
+  }
+  hiding ^= 1;
+}
 $(document).ready(function() {
   $(".clickable").click(function() {
     $(this).toggleClass('no');
@@ -37,7 +47,12 @@ $(document).ready(function() {
     $(".clickable").removeClass("no");
     sync();
   });
+
+  $("#hide").click(function() {
+    hide();
+  });
   sync();
+  hide();
 });
 $(document).keydown(function(e) {
   if (e.which == 90) z = 1; 

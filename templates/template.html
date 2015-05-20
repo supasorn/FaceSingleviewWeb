@@ -4,7 +4,7 @@
 </head>
 <style>
 .no {
-  opacity: 0.15;
+  opacity: 0.25;
   outline: 5px solid red;
   outline-offset: -5px;
 }
@@ -14,7 +14,7 @@ body {
 }
 .fl {
   position: fixed;
-  left: 50px;
+  left: 200px;
   font-size: 25px;
 }
 </style>
@@ -23,7 +23,9 @@ body {
 <a style="color:white" href="#" id="clear">Clear</a>
 <a style="color:white" href="#" id="hide">Hide unselected</a></br>
 <p id='folder' style='display:none;'>Daniel_Craig</p>
+<div style="width:1000px">
 {{imgs | safe}}
+</div>
 <script src="{{url_for('static', filename='script.js')}}"></script>
 </body>
 </html>
