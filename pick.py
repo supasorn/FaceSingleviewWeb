@@ -4,7 +4,11 @@ import glob
 import collections
 app = Flask(__name__)
 
-data = "/home/supasorn/face-singleview/data/"
+if platform.dist()[0] == 'fedora':
+    data = "/projects/grail/supasorn/face-singleview/data/"
+else:
+    data = "/home/supasorn/face-singleview/data/"
+
 
 @app.route("/")
 def test():
@@ -45,4 +49,4 @@ def pick(guy, movie):
     return render_template("template.html", imgs=st) 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
