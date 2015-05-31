@@ -23,6 +23,23 @@ def c(p):
         return send_file(data + "/" + p)
     return ('invalid', 403)
 
+@app.route("/video/<path:p>")
+def video(p):
+    if p[-3:] == "mp4" and os.path.exists(data + "/" + p):
+        return send_file(data + "/" + p)
+
+@app.route("/<guy>/<movie>/result")
+def result(guy, movie):
+    lst = os.listdir(data + "/" + guy)
+    print "-----------------"
+    print lst
+    videos = []
+    for f in sorted(lst):
+        if movie + "_" in f and os.path.isdir(data + "/" + guy + "/" + f) and os.path.exists(data + "/" + guy + "/" + f + "/puppet_sound.mp4"):
+            videos.append({"name": f, "url": "/video/" + guy + "/" + f + "/puppet_sound.mp4"})
+    return render_template("showvideo.html", videos=videos)
+    #return ('invalid', 403)
+
 @app.route("/<guy>/<movie>/", methods=['GET', 'POST'])
 def pick(guy, movie):
     #print dict(request.args.items())

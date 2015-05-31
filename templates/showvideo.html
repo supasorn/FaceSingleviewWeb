@@ -1,0 +1,48 @@
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<style>
+.no {
+  opacity: 0.25;
+  outline: 5px solid red;
+  outline-offset: -5px;
+}
+body {
+  background-color: #222222;
+  color: white;
+}
+.fl {
+  position: fixed;
+  left: 200px;
+  font-size: 25px;
+}
+</style>
+<body>
+<div class="fl"><p id="status">Synced</p></div>
+<div style="width:1000px">
+    {% for video in videos %}
+    {{video.name}}<br/>
+    <video controls class="video">
+        <source src="{{video.url}}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <br/>
+    {% endfor %}
+</div>
+<script type="text/javascript">
+    $('.video').click(function() {
+        var video = $(this).get(0);
+        if (video.paused === false) {
+            video.pause();
+        } else {
+            video.play();
+        }
+        return false;
+    });
+
+</script>
+
+</body>
+</html>
+
