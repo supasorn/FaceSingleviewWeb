@@ -36,7 +36,9 @@ def result(guy, movie):
     videos = []
     for f in sorted(lst):
         if movie + "_" in f and os.path.isdir(data + "/" + guy + "/" + f):
-            if os.path.exists(data + "/" + guy + "/" + f + "/puppet_sound.mp4"):
+            if os.path.exists(data + "/" + guy + "/" + f + "/text_sound.mp4"):
+                videos.append({"name": f, "url": "/video/" + guy + "/" + f + "/text_sound.mp4"})
+            elif os.path.exists(data + "/" + guy + "/" + f + "/puppet_sound.mp4"):
                 videos.append({"name": f, "url": "/video/" + guy + "/" + f + "/puppet_sound.mp4"})
             elif os.path.exists(data + "/" + guy + "/" + f + "/shading.mp4"):
                 videos.append({"name": f, "url": "/video/" + guy + "/" + f + "/shading.mp4"})
