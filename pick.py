@@ -69,7 +69,7 @@ def c(p):
 
 @app.route("/video/<path:p>")
 def video(p):
-    if p[-3:] == "mp4" and os.path.exists(data + "/" + p):
+    if p[-3:] in ["mp4", "avi"] and os.path.exists(data + "/" + p):
         return send_file_partial(data + "/" + p)
 
 @app.route("/<guy>/<movie>/result")
