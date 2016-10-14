@@ -63,23 +63,28 @@ def showdir(p):
   fs = sorted(os.listdir(p))
   st = ""
   for f in fs:
-    st += "<a href='/here/" + p + "/" + f + "'>" + f + "</a><br/>"
+    #st += "<a href='/here/" + p + "/" + f + "'>" + f + "</a><br/>"
+    if os.path.isdir(p + "/" + f):
+      st += "<a href='" + f + "/'>" + f + "/</a><br/>"
+    else:
+      st += "<a href='" + f + "'>" + f + "</a><br/>"
+
   return st
 
-@app.route("/1/<path:f>")
+@app.route("/1/<path:f>/")
 def p1(f):
   print f
   return display("/projects/grail/supasorn/" + f)
 
-@app.route("/2nb/<path:f>")
+@app.route("/2nb/<path:f>/")
 def p2(f):
   return display("/projects/grail/supasorn2nb/" + f)
 
-@app.route("/home/<path:f>")
+@app.route("/home/<path:f>/")
 def p3(f):
   return display("/homes/grail/supasorn/" + f)
 
-@app.route("/here/<path:f>")
+@app.route("/here/<path:f>/")
 def here(f):
   if os.path.isdir(f):
     return showdir(f)
