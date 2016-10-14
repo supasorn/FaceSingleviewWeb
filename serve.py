@@ -53,23 +53,11 @@ def send_file_partial(path):
 
     return rv
 
-@app.route("/1/<path:f>")
-def p1(f):
-  is os.path.isdir(f):
+def display(f):
+  print "in"
+  if os.path.isdir(f):
     return showdir(f)
-  return send_file_partial("/projects/grail/supasorn/" + f);
-
-@app.route("/2nb/<path:f>")
-def p2(f):
-  is os.path.isdir(f):
-    return showdir(f)
-  return send_file_partial("/projects/grail/supasorn2nb/" + f);
-
-@app.route("/home/<path:f>")
-def p3(f):
-  is os.path.isdir(f):
-    return showdir(f)
-  return send_file_partial("/homes/grail/supasorn/" + f);
+  return send_file_partial(f);
 
 def showdir(p):
   fs = sorted(os.listdir(p))
@@ -77,6 +65,19 @@ def showdir(p):
   for f in fs:
     st += "<a href='/here/" + p + "/" + f + "'>" + f + "</a><br/>"
   return st
+
+@app.route("/1/<path:f>")
+def p1(f):
+  print f
+  return display("/projects/grail/supasorn/" + f)
+
+@app.route("/2nb/<path:f>")
+def p2(f):
+  return display("/projects/grail/supasorn2nb/" + f)
+
+@app.route("/home/<path:f>")
+def p3(f):
+  return display("/homes/grail/supasorn/" + f)
 
 @app.route("/here/<path:f>")
 def here(f):
