@@ -7,6 +7,7 @@ import sys
 import re
 import mimetypes
 import json
+from collections import OrderedDict
 app = Flask(__name__)
 
 
@@ -87,10 +88,11 @@ def printTree(tree, tab, path):
   if tree == "Leaf":
     return ""
   output = ""
+  leaves = 0
+  leaflim = 10
   for key in tree:
     t = tree
     k = key
-    output += ("&nbsp;" * tab * 5)
     p = path
 
     output2 = ""
@@ -101,11 +103,18 @@ def printTree(tree, tab, path):
       k = t.iterkeys().next()
     p += "/" + k
     if t[k] == "Leaf":
-      output2 += k
-      output += "<a href='" + p + "'>" + output2 + "</a><br>"
+      if leaves < leaflim:
+        output2 += k
+        output += ("&nbsp;" * tab * 5) + "<a href='" + p + "'>" + output2 + "</a><br>"
+      elif leaves == leaflim:
+        output2 += k
+        output += ("&nbsp;" * tab * 5) + "...<br/>"
+      else:
+        None
+      leaves += 1
     else:
       output2 += k 
-      output += "<a style='color: black; font-size: 20px;' href='" + p + "/'>" + output2 + "/</a><br>" + printTree(t[k], tab+1, p)
+      output += ("&nbsp;" * tab * 5) + "<a style='color: black; font-size: 20px;' href='" + p + "/'>" + output2 + "/</a><br>" + printTree(t[k], tab+1, p)
 
 
   return output
@@ -116,7 +125,7 @@ def printTree(tree, tab, path):
 def root():
   with open(history) as f:
     lines = f.readlines()
-  root = {}
+  root = OrderedDict()
 
   
   output = ""
@@ -131,7 +140,7 @@ def root():
         if i == len(st) - 1:
           cur[s] = "Leaf"
         else:
-          cur[s] = {}
+          cur[s] = OrderedDict()
       cur = cur[s]
 
   #output += json.dumps(root)
