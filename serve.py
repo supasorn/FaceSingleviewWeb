@@ -20,6 +20,7 @@ def after_request(response):
     return response
 
 def saveHistory(path):
+  if "favicon.ico" in path: return
   with open(history, "r") as fi:
     lines = fi.readlines()
 
@@ -74,15 +75,16 @@ def display(f):
 
 def showdir(p):
   fs = sorted(os.listdir(p))
-  st = ""
+  stdir = ""
+  stfile = ""
   for f in fs:
     #st += "<a href='/here/" + p + "/" + f + "'>" + f + "</a><br/>"
     if os.path.isdir(p + "/" + f):
-      st += "<a href='" + f + "/'>" + f + "/</a><br/>"
+      stdir += "<a href='" + f + "/'>" + f + "/</a><br/>"
     else:
-      st += "<a href='" + f + "'>" + f + "</a><br/>"
+      stfile += "<a href='" + f + "'>" + f + "</a><br/>"
 
-  return st
+  return '<style>a { text-decoration: none; color: blue; }</style><div style="width: 100%;overflow:auto"><div style="float:left; width: 50%">' + stdir + '</div><div style="float:right; width: 50%">' + stfile + '</div></div>'
 
 def printTree(tree, tab, path):
   if tree == "Leaf":
